@@ -57,9 +57,7 @@ def main():
 			send_tweet('output.txt')
 		# otherwise wait
 		else:
-			# print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
-			api.update_status(status="test")
-			api.update_status(status=CONSUMER_KEY[:5])
+			print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
 
 		sleep(59)
 
