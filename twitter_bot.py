@@ -12,10 +12,10 @@ import os
 
 # create environment variables
 load_dotenv()
-CONSUMER_KEY = os.getenv("CONSUMER_KEY")
-CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
-ACCESS_KEY = os.getenv("ACCESS_KEY")
-ACCESS_SECRET = os.getenv("ACCESS_SECRET")
+CONSUMER_KEY = os.environ.get("CONSUMER_KEY")
+CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET")
+ACCESS_KEY = os.environ.get("ACCESS_KEY")
+ACCESS_SECRET = os.environ.get("ACCESS_SECRET")
 
 ### SETTING UP TWITTER API ###
 
