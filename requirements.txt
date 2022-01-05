@@ -1,4 +1,3 @@
 tweepy
 datetime
 python-dotenv
-os
