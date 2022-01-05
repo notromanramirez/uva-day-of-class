@@ -5,14 +5,17 @@
 import tweepy
 from datetime import date
 from time import gmtime, strftime, sleep
+from dotenv import load_dotenv
+import os
 
 ### CONSTANT TWITTER VARIABLES ###
 
-CONSUMER_KEY = 'ujHGRaBaMknZmgtTEVZZ2IzQL'
-CONSUMER_SECRET = 'ZD3EyzNvWsaacYZwQQbd1TR23y2eUomb7ZAc8UPG3eJKniGQIM'
-
-ACCESS_KEY = '1478768806197616642-D7BFHeErEXV5t5NJg2PlxZdj6B4X6A'
-ACCESS_SECRET = 'ANieAG7dfN30MMKnunVWbezODhtH7H6m9uu5xroslbpoX'
+# create environment variables
+load_dotenv()
+CONSUMER_KEY = os.environ["CONSUMER_KEY"]
+CONSUMER_SECRET = os.environ["CONSUMER_SECRET"]
+ACCESS_KEY = os.environ["ACCESS_KEY"]
+ACCESS_SECRET = os.environ["ACCESS_SECRET"]
 
 ### SETTING UP TWITTER API ###
 
@@ -37,7 +40,6 @@ def send_tweet(txt_path):
 	print(message_to_send)
 	api.update_status(status=message_to_send)
 
-
 # run forever
 def main():
 	while True:
@@ -55,7 +57,8 @@ def main():
 			send_tweet('output.txt')
 		# otherwise wait
 		else:
-			print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
+			# print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
+			api.update_status(status=CONSUMER_KEY[:5])
 
 		sleep(59)
 
