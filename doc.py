@@ -86,17 +86,27 @@ def parse_txt(path):
         
     return retVal
 
-def school_day_diff(datedict, date1, date2): # date1 is earlier date, date2 is later date
-    currdate = date2
+def school_day_diff(date1, date2, datedict=None): # date1 is earlier date, date2 is later date
+    
     retVal = 1
-    while (currdate != date1):
-        if currdate not in datedict.keys():
-            if currdate.weekday() < 5:
-                retVal += 1
-        currdate = currdate - datetime.timedelta(1)
+
+    # print(date1, date2)
+    if date1 <= date2:
+        currdate = date2
+
+        while (currdate != date1):
+            if currdate not in datedict.keys():
+                if currdate.weekday() < 5:
+                    retVal += 1
+            currdate = currdate - datetime.timedelta(1)
+
+    else:
+        retVal = (int)((date2 - date1).total_seconds()/86400)
+
     return retVal 
 
 def dict_to_message(doc, days_after, abv=False):
+
     retVal = ''
 
     if isinstance(doc, int):
@@ -120,6 +130,15 @@ def dict_to_message(doc, days_after, abv=False):
             retVal += word[0]
 
     retVal += "!"
+
+    return retVal
+
+def dict_to_before_message(doc):
+
+    retVal = ''
+    plural_days = 's' if -doc > 1 else ''
+    plural_are = 'are' if -doc > 1 else 'is'
+    retVal = f'There {plural_are} {-doc} day{plural_days} until the first day of class.'
     return retVal
 
 def main():
@@ -140,7 +159,7 @@ def main():
     
     starting = fdoc
     while starting != ldoc + datetime.timedelta(1):
-        sdd = school_day_diff(d, fdoc, starting)
+        sdd = school_day_diff(fdoc, starting, d)
         datedoc[starting] = sdd
         
         starting += datetime.timedelta(1)
@@ -158,11 +177,23 @@ def main():
         # print(k, v, is_skip)
         
         newdatedoc[k] = (v, is_skip)
-        
-    # for k, v in newdatedoc.items():
-    #     print(k, v)
+
+    # print(newdatedoc)
+
+    before_datedoc = defaultdict()
+    before_date = datetime.date(2022, 1, 1)
+    while before_date != fdoc:
+        sdd = school_day_diff(fdoc, before_date)
+        before_datedoc[before_date] = sdd
+
+        before_date += datetime.timedelta(1)
 
     with open('output.txt', 'w') as f:
+        for k, v in before_datedoc.items():
+            message = dict_to_before_message(v)
+            # print(k, message)
+            f.write(str(k) + " | " + message + '\n')
+
         for k, v in newdatedoc.items():
             abv = True
             if k != ldoc:
@@ -170,7 +201,7 @@ def main():
             else:
                 message = dict_to_message(ldoc, 0, abv)
             # print(k, message)
-            f.write(str(k) + " " + message + '\n')
+            f.write(str(k) + " | " + message + '\n')
 
     with open('output_long.txt', 'w') as f:
         for k, v in newdatedoc.items():
@@ -180,7 +211,7 @@ def main():
             else:
                 message = dict_to_message(ldoc, 0, abv)
             # print(k, message)
-            f.write(str(k) + " " + message + '\n')
+            f.write(str(k) + " | " + message + '\n')
     
        
 if __name__ == '__main__':
