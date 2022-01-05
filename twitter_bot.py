@@ -43,7 +43,8 @@ def main():
 	while True:
 
 		# the time to tweet an update
-		TIME_TO_TWEET = "16:00"
+		TIME_TO_TWEET = "18:00"
+		# TIME_TO_TWEET = '13:00'
 
 		# store the current time
 		current_time = strftime('%H:%M', gmtime())
@@ -62,3 +63,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	# send_tweet('output.txt')
