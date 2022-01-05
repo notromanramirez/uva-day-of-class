@@ -107,9 +107,11 @@ def dict_to_message(doc, days_after, abv=False):
     
     retVal += 'Happy '
 
-    if days_after > 0:
+    if days_after == 1:
+        retVal += f'{da_word} day after the '
+    if days_after >= 2:
         retVal += f'{da_word} days after the '
-    retVal += f'{doc_word} day of class!'
+    retVal += f'{doc_word} day of class'
 
     if abv:
         word_list = re.findall(r"[\w']+", retVal[len('Happy '):])
@@ -167,7 +169,17 @@ def main():
                 message = dict_to_message(*v, abv)
             else:
                 message = dict_to_message(ldoc, 0, abv)
-            print(k, message)
+            # print(k, message)
+            f.write(str(k) + " " + message + '\n')
+
+    with open('output_long.txt', 'w') as f:
+        for k, v in newdatedoc.items():
+            abv = False
+            if k != ldoc:
+                message = dict_to_message(*v, abv)
+            else:
+                message = dict_to_message(ldoc, 0, abv)
+            # print(k, message)
             f.write(str(k) + " " + message + '\n')
     
        
