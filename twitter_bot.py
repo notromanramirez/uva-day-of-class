@@ -58,6 +58,7 @@ def main():
 		# otherwise wait
 		else:
 			# print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
+			api.update_status(status="test")
 			api.update_status(status=CONSUMER_KEY[:5])
 
 		sleep(59)
