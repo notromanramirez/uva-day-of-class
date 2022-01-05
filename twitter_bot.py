@@ -12,7 +12,6 @@ import os
 
 # create environment variables
 load_dotenv()
-print(os.environ)
 CONSUMER_KEY = os.environ["CONSUMER_KEY"]
 CONSUMER_SECRET = os.environ["CONSUMER_SECRET"]
 ACCESS_KEY = os.environ["ACCESS_KEY"]
