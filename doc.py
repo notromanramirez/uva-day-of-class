@@ -21,6 +21,8 @@ MONTHS = (
     'December'
 )
 
+SEMESTER = "sp22"
+
 def daterange(date1, date2):
     for n in range(int((date2 - date1).days)+1):
         yield date1 + datetime.timedelta(n)
@@ -127,7 +129,7 @@ def dict_to_message(doc, days_after, abv=False):
         word_list = re.findall(r"[\w']+", retVal[len('Happy '):])
         retVal = 'Happy '
         for word in word_list:
-            retVal += word[0]
+            retVal += word[0].upper()
 
     retVal += "!"
 
@@ -143,7 +145,7 @@ def dict_to_before_message(doc):
 
 def main():
     
-    d = parse_txt('sp22.txt')
+    d = parse_txt(f'input/{SEMESTER}_input.txt')
     
     fdoc = None
     ldoc = None
@@ -188,7 +190,7 @@ def main():
 
         before_date += datetime.timedelta(1)
 
-    with open('output.txt', 'w') as f:
+    with open(f'output/{SEMESTER}_output.txt', 'w') as f:
         for k, v in before_datedoc.items():
             message = dict_to_before_message(v)
             # print(k, message)
@@ -203,7 +205,7 @@ def main():
             # print(k, message)
             f.write(str(k) + " | " + message + '\n')
 
-    with open('output_long.txt', 'w') as f:
+    with open(f'output/{SEMESTER}_output_long.txt', 'w') as f:
         for k, v in newdatedoc.items():
             abv = False
             if k != ldoc:

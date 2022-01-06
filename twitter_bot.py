@@ -25,6 +25,8 @@ api = tweepy.API(auth)
 
 ### SCRIPT ###
 
+SEMESTER = "sp22"
+
 # a function that sends a message
 def send_tweet(txt_path):
 	today = str(date.today())
@@ -54,7 +56,7 @@ def main():
 
 		# send a tweet if it's time to send one
 		if (current_time == TIME_TO_TWEET):
-			send_tweet('output.txt')
+			send_tweet(f'output/{SEMESTER}_output.txt')
 		# otherwise wait
 		else:
 			print(f"It isn't time to send a tweet yet. A tweet will be sent at {TIME_TO_TWEET}.")
