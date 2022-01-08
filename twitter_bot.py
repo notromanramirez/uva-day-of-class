@@ -29,6 +29,7 @@ SEMESTER = "sp22"
 
 # a function that sends a message
 def send_tweet(txt_path):
+
 	today = str(date.today())
 
 	message_to_send = ''
@@ -39,7 +40,7 @@ def send_tweet(txt_path):
 			if day == today:
 				message_to_send = message
 
-	print(message_to_send)
+	print(f"Sending message: {message_to_send}")
 	api.update_status(status=message_to_send)
 
 # run forever
@@ -52,7 +53,7 @@ def main():
 		# store the current time
 		current_time = strftime('%H:%M', gmtime())
 
-		print(f"It is now {current_time}.")
+		print(f"It is now {current_time}.", end=' ')
 
 		# send a tweet if it's time to send one
 		if (current_time == TIME_TO_TWEET):
