@@ -127,7 +127,7 @@ def dict_to_message(doc, days_after, abv=False):
 
     if abv:
         word_list = re.findall(r"[\w']+", retVal[len('Happy '):])
-        retVal = 'Happy '
+        retVal = 'Happy #'
         for word in word_list:
             retVal += word[0].upper()
 
